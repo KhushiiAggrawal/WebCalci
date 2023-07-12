@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            /* border: 1px solid red; */
+            background: black;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            /*outline: 1px solid red;*/
+            box-sizing: border-box;
+        }
+        .wrapper{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            position: relative;
+            flex-direction: column;
+        }
+        .buttongrid{
+            display: grid;
+            height: 55%;
+            width: 100%;
+            padding:3%;
+            grid-template-columns: repeat(4,1fr);
+            border: none;
+            background-color:#131313;
+            bottom: 0;
+            position: absolute;
+            
+        }
+        #inputbox{
+            height:4rem;
+            background-color:black;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            overflow-x: scroll;
+            text-align: right;
+            width: 100%;
+            bottom: 60%;
+            padding-inline:1rem ;
+            position: absolute;
+        }
+        button{
+          background-color:#131313;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+        }
+        .operators{
+          color: aqua;
+          font-size: 2rem;
+        }
+        .removeoperators{
+          color:aqua;
+        }
+
+       
+    </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+        <input disabled="true" type="text" name="inputbox" id="inputbox">
+        <div class="buttongrid">
+          <button class="removeoperators" onclick="removeAll()">C</button>
+          <button class="removeoperators" onclick="add('%','op')">%</button>
+          <button class="removeoperators" onclick="remove()"><i class="fa-solid fa-delete-left" style="color: aqua;"></i></button>
+          <button class="operators" onclick="add('/','op')">÷</button>
+            <button onclick="add('7',null)">7</button>
+            <button onclick="add('8',null)">8</button>
+            <button onclick="add('9',null)">9</button>
+            <button class="operators" onclick="add('*','op')">×</button>
+            <button onclick="add('4',null)">4</button>
+            <button onclick="add('5',null)">5</button>
+            <button onclick="add('6',null)">6</button>
+            <button class="operators" onclick="add('-','op')">–</button>
+            <button onclick="add('1',null)">1</button>
+            <button onclick="add('2',null)">2</button>
+            <button onclick="add('3',null)">3</button>
+            <button class="operators" onclick="add('+','op')">+</button>
+            <button onclick="add('00',null)">00</button>
+            <button onclick="add('0',null)">0</button>
+            <button class="operators" onclick="add('.','op')">.</button>
+            <button class="operators" onclick="operate()">=</button>
+        </div>
+        
+    </div>
+  </div>
+    <script>
+        let dtype="";
+        let out= document.getElementById("inputbox");
+        const add=(num,type)=>{
+           out.scrollLeft = out.scrollWidth;
+            if(type=="op"){
+            if (dtype != "op") {
+                    out.value += num;
+                } 
+            }  
+            else{
+                out.value += num;
+            }          
+            dtype = type;
+        }
+
+        const operate=(operation)=>{
+            if(dtype!="op"){
+                out.value =eval(out.value);
+            }
+        }
+        const remove=()=>{
+             end=out.value.length;
+            out.value = out.value.substring(0,end-1); 
+        }
+        const removeAll = () => {
+                out.value =""
+            }
+      
+    </script>
+</body>
