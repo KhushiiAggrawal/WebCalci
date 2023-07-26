@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +37,7 @@
         }
         .buttongrid{
             display: grid;
-            height: 55%;
+            height: 70%;
             width: 100%;
             padding:3%;
             grid-template-columns: repeat(4,1fr);
@@ -55,7 +56,7 @@
             overflow-x: scroll;
             text-align: right;
             width: 100%;
-            bottom: 60%;
+            bottom: 75%;
             padding-inline:1rem ;
             position: absolute;
         }
@@ -81,10 +82,21 @@
     <div class="container">
         <input disabled="true" type="text" name="inputbox" id="inputbox">
         <div class="buttongrid">
+            <button class="removeoperators" onclick="add('sin(','op')">sin</button>
+          <button class="removeoperators" onclick="add('cos(','op')">cos</button>
+          <button class="removeoperators" onclick="add('tan(','op')">tan</button>
+          <button class="removeoperators" onclick="add('log(','op')">log</button>
+
+          <button class="removeoperators" onclick="add('(','op')">(</button>
+          <button class="removeoperators" onclick="add(')',null)">)</button>
+          <button class="removeoperators" onclick="add('^','op')">^</button>
+          <button class="removeoperators" onclick="add('ln(','op')">ln</button>
+          
           <button class="removeoperators" onclick="removeAll()">C</button>
           <button class="removeoperators" onclick="add('%','op')">%</button>
           <button class="removeoperators" onclick="remove()"><i class="fa-solid fa-delete-left" style="color: aqua;"></i></button>
           <button class="operators" onclick="add('/','op')">÷</button>
+          
             <button onclick="add('7',null)">7</button>
             <button onclick="add('8',null)">8</button>
             <button onclick="add('9',null)">9</button>
@@ -123,7 +135,15 @@
 
         const operate=(operation)=>{
             if(dtype!="op"){
-                out.value =eval(out.value);
+                output = out.value;
+                output = output.replace(/sin\(/g, 'Math.sin(Math.PI/180*');
+                output = output.replace(/cos\(/g, 'Math.cos(Math.PI/180*');
+                output = output.replace(/tan\(/g, 'Math.tan(Math.PI/180*');
+                output = output.replace(/log\(/g, 'Math.log10(');
+                output = output.replace(/ln\(/g, 'Math.log(');
+                output = output.replace(/\^/g, '**');
+                
+                out.value =eval(output);
             }
         }
         const remove=()=>{
