@@ -48,7 +48,7 @@
             
         }
         #inputbox{
-            height:6rem;
+            height:4rem;
             background-color:black;
             border: none;
             color: white;
@@ -64,11 +64,11 @@
           background-color:#131313;
           border: none;
           color: white;
-          font-size: 3.5vh;
+          font-size: 4vh;
         }
         .operators{
           color: aqua;
-          font-size: 4.5vh;
+          font-size: 5vh;
         }
         .removeoperators{
           color:aqua;
@@ -136,6 +136,8 @@
         const operate=(operation)=>{
             if(dtype!="op"){
                 output = out.value;
+                output = output.replace(/tan\(90\)/g, 'Infinity');
+                output = output.replace(/cos\(90\)/g, 0);
                 output = output.replace(/sin\(/g, 'Math.sin(Math.PI/180*');
                 output = output.replace(/cos\(/g, 'Math.cos(Math.PI/180*');
                 output = output.replace(/tan\(/g, 'Math.tan(Math.PI/180*');
@@ -143,7 +145,13 @@
                 output = output.replace(/ln\(/g, 'Math.log(');
                 output = output.replace(/\^/g, '**');
                 
-                out.value =eval(output);
+
+                const result =eval(output);
+                if (result === Infinity || isNaN(result)) {
+                out.value = 'Infinity';
+                } else {
+                out.value = result;
+                }
             }
         }
         const remove=()=>{
